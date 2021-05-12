@@ -1,6 +1,9 @@
 /* Challenge #1
+   Added a single floor to handle the elevator on idle.
 
- Added a single floor to handle the elevator on idle.
+   Challenge #2 
+   Added another two floors to the code to account for floors 0-4
+
 */
 
 {
@@ -13,7 +16,9 @@
             // let's go to all the floors (or did we forget one?)
             elevator.goToFloor(0);
             elevator.goToFloor(1);
-            elevator.goToFloor(2); // added the second floor
+            elevator.goToFloor(2); 
+            elevator.goToFloor(3); 
+            elevator.goToFloor(4);
         });
 
 
