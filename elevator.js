@@ -1,3 +1,4 @@
+
 /* Challenge #1
    Added a single floor to handle the elevator on idle.
    Challenge #2 
@@ -13,17 +14,20 @@
    Set elevator to go to level 0 when idle.  Added a listener event for passing_floor and prioritized it. 
    Challenge #7 
    No changes
+   Challenge #8
+   Split the work betwen elevators. Added a helper function to check if elevator is empty
+   Challenge #9
+   No changes
 */
-
 {
 
     init: function(elevators, floors) {
         console.clear();
-        var numOfElevators = elevators.length;
-        var numOfFloors = floors.length; 
+        let numOfElevators = elevators.length;
+        let numOfFloors = floors.length; 
 
 
-        for (var i = 0;  i < numOfElevators;  i++){ // looping through elevators
+        for (let i = 0;  i < numOfElevators;  i++){ // looping through elevators
             let elevator = elevators[i];
 
             elevator.on("idle", function() {
@@ -36,21 +40,19 @@
                 elevator.goToFloor(floorNum)
             } );
 
-            // passing floor
-            elevator.on("passing_floor", function(floorNum, destinationDirection) {
-                if (elevator.loadFactor() < 1){
-                    elevator.goToFloor(floorNum, true);
-
-                }
-            });
-
-            for (var f = 0; f < numOfFloors; f++) {
-                var floor = floors[f];
-                floor.on("up_button_pressed down_button_pressed", function() {
-                    elevator.goToFloor(f);
-                });
+            // checks if empty and not in any queue
+            if(elevator.loadFactor() === 0) {
+                // Maybe use this elevator, since it's not full yet?
+                elevator.goToFloor(0);
             }
 
+            for (let f = 1; f < numOfFloors; f++){
+                if (f % numOfElevators == i){ // split the work between elevators
+                    let floor = floors[f];
+                    floor.on("up_button_pressed down_button_pressed", function() { // when up or down button is pressed
+                        elevator.goToFloor(f);})
+                }
+            }
 
 
 
