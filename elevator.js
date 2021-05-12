@@ -4,7 +4,7 @@
    Challenge #2 
    Added another two floors to the code to account for floors 0-4
 
-   Challenge #2 
+   Challenge #3 
    No Changes
 
 */
