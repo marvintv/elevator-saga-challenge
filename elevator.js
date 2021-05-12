@@ -18,13 +18,14 @@
 {
 
     init: function(elevators, floors) {
-
+        console.clear();
         var numOfElevators = elevators.length;
         var numOfFloors = floors.length; 
 
 
         for (var i = 0;  i < numOfElevators;  i++){ // looping through elevators
             let elevator = elevators[i];
+
             elevator.on("idle", function() {
                 console.log("Elevator: " + i);
                 elevator.goToFloor(0);
@@ -39,14 +40,25 @@
             elevator.on("passing_floor", function(floorNum, destinationDirection) {
                 if (elevator.loadFactor() < 1){
                     elevator.goToFloor(floorNum, true);
+
                 }
             });
 
-        }
+            for (var f = 0; f < numOfFloors; f++) {
+                var floor = floors[f];
+                floor.on("up_button_pressed down_button_pressed", function() {
+                    elevator.goToFloor(f);
+                });
+            }
 
 
 
-    },
+
+        } // end elevator loop
+
+
+
+    }, 
         update: function(dt, elevators, floors) {
             // We normally don't need to do anything here
         }
