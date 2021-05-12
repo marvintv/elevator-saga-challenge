@@ -9,6 +9,10 @@
    Added the  floor_button_pressed listener event for both elevators, which went to floorNum with priority.
    Challenge #5
    intitilized numOfElevators and numOfFloors to a var. We traversed through each elevator using a for loop. Added a for loop for going through floors because num was changing.
+   Challenge #6
+   Set elevator to go to level 0 when idle.  Added a listener event for passing_floor and prioritized it. 
+   Challenge #7 
+   No changes
 */
 
 {
@@ -25,12 +29,13 @@
                 console.log("Elevator: " + i);
                 elevator.goToFloor(0);
             });
-
+            // floor button pressed
             elevator.on("floor_button_pressed", function(floorNum) {
                 console.log("floor pressed. Floor num: " + floorNum);
                 elevator.goToFloor(floorNum)
             } );
 
+            // passing floor
             elevator.on("passing_floor", function(floorNum, destinationDirection) {
                 if (elevator.loadFactor() < 1){
                     elevator.goToFloor(floorNum, true);
